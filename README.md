@@ -2,6 +2,8 @@
 
 A multi-step onboarding form wizard built with React, TypeScript, and Tailwind CSS. Features a dark theme, mobile-first responsive design, form validation, and a celebratory confetti animation upon successful submission.
 
+🌐 **Live Demo**: [https://alonzo245.github.io/onboarding-form-data/](https://alonzo245.github.io/onboarding-form-data/)
+
 ## Features
 
 - **Multi-step Form**: Step-by-step wizard with Email → Personal Details → Home Address → Review → Thank You
@@ -31,7 +33,7 @@ A multi-step onboarding form wizard built with React, TypeScript, and Tailwind C
 ```
 src/
 ├── routes/
-│   └── onboarding/
+│   └── onboarding-form-data/
 │       ├── OnboardingWizard.tsx    # Main wizard component
 │       ├── Header.tsx              # Step indicator with navigation
 │       ├── Footer.tsx               # Previous/Next buttons
@@ -52,7 +54,8 @@ src/
 │       └── common/
 │           └── Step.tsx             # Step wrapper component
 ├── main.tsx                         # App entry point
-└── router.tsx                        # React Router configuration
+├── router.tsx                       # React Router configuration
+└── constants.ts                     # App constants
 ```
 
 ## Installation
@@ -137,11 +140,11 @@ npm run test:run  # Run tests once
 
 ## Configuration
 
-Step configuration and default values can be modified in `src/routes/onboarding/config.ts`.
+Step configuration and default values can be modified in `src/routes/onboarding-form-data/config.ts`.
 
 ## Type Definitions
 
-All form data types are defined in `src/routes/onboarding/types.ts`:
+All form data types are defined in `src/routes/onboarding-form-data/types.ts`:
 
 - `EmailStepData`
 - `PersonalDetailsStepData`
@@ -149,8 +152,18 @@ All form data types are defined in `src/routes/onboarding/types.ts`:
 
 ## Validation Schemas
 
-Validation schemas are defined in `src/routes/onboarding/validation.ts` using Zod:
+Validation schemas are defined in `src/routes/onboarding-form-data/validation.ts` using Zod:
 
 - `emailStepValidation`
 - `personalDetailsStepValidation`
 - `homeAddressStepValidation`
+
+## Deployment
+
+This project is configured for GitHub Pages deployment. The app is automatically deployed when changes are pushed to the `main` branch.
+
+- **GitHub Pages URL**: [https://alonzo245.github.io/onboarding-form-data/](https://alonzo245.github.io/onboarding-form-data/)
+- **Base Path**: `/onboarding-form-data` (configured in `src/router.tsx`)
+- **Deployment Workflow**: `.github/workflows/deploy.yml`
+
+The router is configured with a fixed base path for GitHub Pages, ensuring all routes work correctly in the deployed environment.
