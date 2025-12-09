@@ -23,22 +23,18 @@ import {
   PersonalDetailsStepData,
   HomeAddressStepData,
 } from "./types";
+import { stepsConfig } from "./config";
 
 export function OnboardingWizard() {
   const [step, setStep] = useState<StepKey>(STEP_EMAIL);
   const [mode, setMode] = useState(STEP_MODE_CREATE);
 
-  const emailStepData = useRef<EmailStepData>({ email: "" });
+  const emailStepData = useRef<EmailStepData>({ ...stepsConfig.email });
   const personalDetailsStepData = useRef<PersonalDetailsStepData>({
-    firstName: "",
-    lastName: "",
-    dateOfBirth: "",
+    ...stepsConfig.personalDetails,
   });
   const homeAddressStepData = useRef<HomeAddressStepData>({
-    addressLine1: "",
-    city: "",
-    state: "",
-    zip: "",
+    ...stepsConfig.homeAddress,
   });
 
   const { handleOnSubmit } = useOnboardingSubmit({
