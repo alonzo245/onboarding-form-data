@@ -35,6 +35,7 @@ jobs:
         run: npm run build
         env:
           BASE_URL: "/onboarding-form-data/"
+          ROOT_PATH: "/onboarding-form-data/"
 
       - name: Create 404.html for SPA routing
         run: cp dist/index.html dist/404.html

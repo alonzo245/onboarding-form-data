@@ -10,6 +10,10 @@ export const router = createBrowserRouter(
       path: ONBOARDING_PATHS.BASE,
       element: <OnboardingWizard />,
     },
+    {
+      path: ROOT_PATH,
+      element: <OnboardingWizard />,
+    },
   ],
   {
     basename: basePath === ROOT_PATH ? undefined : basePath.replace(/\/$/, ""),
