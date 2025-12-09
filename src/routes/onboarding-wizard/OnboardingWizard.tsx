@@ -4,11 +4,6 @@ import { PersonalDetails } from "./steps/PersonalDetails";
 import { HomeAddress } from "./steps/HomeAddress";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-import {
-  emailStepValidation,
-  personalDetailsStepValidation,
-  homeAddressStepValidation,
-} from "./validation";
 import { Review } from "./steps/Review";
 import { Step } from "./common/Step";
 import {
@@ -18,17 +13,13 @@ import {
   STEP_HOME_ADDRESS,
   STEP_REVIEW,
   type StepKey,
-  STEP_THANK_YOU,
 } from "./constants";
 import { Form } from "react-aria-components";
-import { useErrorsStore } from "./store/errorsStore";
-import { ZodError } from "zod";
-import { submitOnboardingData } from "./queries";
+import { useOnboardingSubmit } from "./hookes";
 
 export function OnboardingWizard() {
   const [step, setStep] = useState<StepKey>(STEP_EMAIL);
   const [mode, setMode] = useState(STEP_MODE_CREATE);
-  const { setZodError, clearErrors } = useErrorsStore();
 
   const emailStepData = useRef<{ email: string }>({ email: "" });
   const personalDetailsStepData = useRef<{
@@ -44,6 +35,14 @@ export function OnboardingWizard() {
     zip: string;
   }>({ addressLine1: "", city: "", state: "", zip: "" });
 
+  const { handleOnSubmit } = useOnboardingSubmit({
+    step,
+    setStep,
+    emailStepData,
+    personalDetailsStepData,
+    homeAddressStepData,
+  });
+
   const onPrevious = () => {
     if (step === STEP_PERSONAL_DETAILS) {
       setStep(STEP_EMAIL);
@@ -51,62 +50,6 @@ export function OnboardingWizard() {
       setStep(STEP_PERSONAL_DETAILS);
     } else if (step === STEP_REVIEW) {
       setStep(STEP_PERSONAL_DETAILS);
-    }
-  };
-
-  const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const data = Object.fromEntries(formData.entries());
-
-    try {
-      if (step === STEP_EMAIL) {
-        const validatedData = emailStepValidation.parse({ email: data.email });
-        if (validatedData) {
-          clearErrors();
-          emailStepData.current = validatedData;
-          setStep(STEP_PERSONAL_DETAILS);
-        }
-        return;
-      } else if (step === STEP_PERSONAL_DETAILS) {
-        const validatedData = personalDetailsStepValidation.parse({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          dateOfBirth: data.dateOfBirth,
-        });
-        if (validatedData) {
-          clearErrors();
-          personalDetailsStepData.current = validatedData;
-          setStep(STEP_HOME_ADDRESS);
-        }
-        return;
-      } else if (step === STEP_HOME_ADDRESS) {
-        const validatedData = homeAddressStepValidation.parse({
-          addressLine1: data.addressLine1,
-          addressLine2: data.addressLine2 || undefined,
-          city: data.city,
-          state: data.state,
-          zip: data.zip,
-        });
-        if (validatedData) {
-          homeAddressStepData.current = validatedData;
-          setStep(STEP_REVIEW);
-        }
-        return;
-      } else if (step === STEP_REVIEW) {
-        await submitOnboardingData({
-          ...emailStepData.current,
-          ...personalDetailsStepData.current,
-          ...homeAddressStepData.current,
-        });
-        clearErrors();
-        setStep(STEP_THANK_YOU);
-      }
-    } catch (error) {
-      console.error(error);
-      if (error instanceof ZodError) {
-        setZodError(error);
-      }
     }
   };
 
