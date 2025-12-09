@@ -17,7 +17,7 @@ import {
   type StepKey,
 } from "./constants";
 import { Form } from "react-aria-components";
-import { useOnboardingSubmit } from "./hookes";
+import { useOnboardingSubmit } from "./hooks";
 
 export function OnboardingWizard() {
   const [step, setStep] = useState<StepKey>(STEP_EMAIL);
@@ -53,7 +53,27 @@ export function OnboardingWizard() {
     } else if (step === STEP_REVIEW) {
       setStep(STEP_PERSONAL_DETAILS);
     }
-    // Don't allow going back from ThankYou step
+  };
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Random 50% success/fail logic for Review step submission
+    if (step === STEP_REVIEW) {
+      if (!(Math.random() >= 0.5)) {
+        // Simulate submission failure
+        const error = new Error(
+          "Failed to submit onboarding data. Please try again."
+        );
+        console.error(error);
+        // You can add error handling here (e.g., show error message to user)
+        return;
+      } else {
+        setStep(STEP_THANK_YOU);
+      }
+    }
+
+    handleOnSubmit(e);
   };
 
   return (
@@ -62,7 +82,7 @@ export function OnboardingWizard() {
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-100 mb-6 sm:mb-8">
           Onboarding Wizard
         </h1>
-        <Form onSubmit={handleOnSubmit}>
+        <Form onSubmit={onSubmit}>
           <div className="bg-gray-800 rounded-lg shadow-lg border border-gray-700 p-4 sm:p-6 lg:p-8">
             <Header currentStep={step} mode={mode} />
             <div className="mt-6 sm:mt-8">

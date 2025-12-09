@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 // @ts-ignore - canvas-confetti doesn't have type definitions
 import confetti from "canvas-confetti";
 
@@ -8,6 +9,7 @@ interface ThankYouProps {
 
 export function ThankYou({ isVisible = true }: ThankYouProps) {
   const hasTriggeredRef = useRef(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Only trigger confetti when the step becomes visible and hasn't been triggered yet
@@ -107,6 +109,15 @@ export function ThankYou({ isVisible = true }: ThankYouProps) {
             </span>
           </li>
         </ul>
+      </div>
+
+      <div className="pt-4">
+        <button
+          onClick={() => navigate("/onboarding")}
+          className="px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-colors"
+        >
+          Back to Main Page
+        </button>
       </div>
     </div>
   );
