@@ -23,6 +23,7 @@ import {
 import { Form } from "react-aria-components";
 import { useErrorsStore } from "./store/errorsStore";
 import { ZodError } from "zod";
+import { submitOnboardingData } from "./queries";
 
 export function OnboardingWizard() {
   const [step, setStep] = useState<StepKey>(STEP_EMAIL);
@@ -53,7 +54,7 @@ export function OnboardingWizard() {
     }
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const data = Object.fromEntries(formData.entries());
@@ -88,12 +89,16 @@ export function OnboardingWizard() {
           zip: data.zip,
         });
         if (validatedData) {
-          clearErrors();
           homeAddressStepData.current = validatedData;
           setStep(STEP_REVIEW);
         }
         return;
       } else if (step === STEP_REVIEW) {
+        await submitOnboardingData({
+          ...emailStepData.current,
+          ...personalDetailsStepData.current,
+          ...homeAddressStepData.current,
+        });
         clearErrors();
         setStep(STEP_THANK_YOU);
       }
@@ -111,7 +116,7 @@ export function OnboardingWizard() {
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-100 mb-6 sm:mb-8">
           Onboarding Wizard
         </h1>
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={handleOnSubmit}>
           <div className="bg-gray-800 rounded-lg shadow-lg border border-gray-700 p-4 sm:p-6 lg:p-8">
             <Header currentStep={step} mode={mode} />
             <div className="mt-6 sm:mt-8">
