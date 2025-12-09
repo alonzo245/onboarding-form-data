@@ -6,7 +6,13 @@ export const emailStepValidation = z.object({
 });
 
 export const personalDetailsStepValidation = z.object({
-  firstName: z.string().min(1),
-  lastName: z.string().min(1),
+  firstName: z
+    .string()
+    .min(1)
+    .regex(/^[a-zA-Z]+$/),
+  lastName: z
+    .string()
+    .min(1)
+    .regex(/^[a-zA-Z]+$/),
   dateOfBirth: z.string().min(1),
 });

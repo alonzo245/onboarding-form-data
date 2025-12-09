@@ -16,10 +16,14 @@ import {
   STEP_REVIEW,
   type StepKey,
 } from "./constants";
+import { Form } from "react-aria-components";
+import { useErrorsStore } from "./store/errorsStore";
+import { ZodError } from "zod";
 
 export function OnboardingWizard() {
   const [step, setStep] = useState<StepKey>(STEP_EMAIL);
   const [mode, setMode] = useState(STEP_MODE_CREATE);
+  const { setZodError, clearErrors } = useErrorsStore();
 
   const emailStepData = useRef<{ email: string }>({ email: "" });
   const personalDetailsStepData = useRef<{
@@ -45,6 +49,7 @@ export function OnboardingWizard() {
       if (step === STEP_EMAIL) {
         const validatedData = emailStepValidation.parse({ email: data.email });
         if (validatedData) {
+          clearErrors();
           emailStepData.current = validatedData;
           setStep(STEP_PERSONAL_DETAILS);
         }
@@ -56,6 +61,7 @@ export function OnboardingWizard() {
           dateOfBirth: data.dateOfBirth,
         });
         if (validatedData) {
+          clearErrors();
           personalDetailsStepData.current = validatedData;
           setStep(STEP_REVIEW);
         }
@@ -63,13 +69,16 @@ export function OnboardingWizard() {
       }
     } catch (error) {
       console.error(error);
+      if (error instanceof ZodError) {
+        setZodError(error);
+      }
     }
   };
 
   return (
     <div>
       <h1>Onboarding Wizard</h1>
-      <form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit}>
         <Header currentStep={step} mode={mode} />
         <Step visible={step === STEP_EMAIL}>
           <Email />
@@ -86,7 +95,7 @@ export function OnboardingWizard() {
           />
         </Step>
         <Footer currentStep={step} onPrevious={onPrevious} />
-      </form>
+      </Form>
     </div>
   );
 }
