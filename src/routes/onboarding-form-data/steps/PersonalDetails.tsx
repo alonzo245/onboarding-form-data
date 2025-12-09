@@ -18,9 +18,6 @@ export function PersonalDetails({
 
   return (
     <div className="space-y-4">
-      <h2 className="text-xl sm:text-2xl font-semibold text-gray-100">
-        Personal Details
-      </h2>
       <div className="space-y-4 sm:space-y-5">
         <div>
           <label
