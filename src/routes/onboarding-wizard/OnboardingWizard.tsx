@@ -18,6 +18,7 @@ import {
   STEP_HOME_ADDRESS,
   STEP_REVIEW,
   type StepKey,
+  STEP_THANK_YOU,
 } from "./constants";
 import { Form } from "react-aria-components";
 import { useErrorsStore } from "./store/errorsStore";
@@ -92,6 +93,9 @@ export function OnboardingWizard() {
           setStep(STEP_REVIEW);
         }
         return;
+      } else if (step === STEP_REVIEW) {
+        clearErrors();
+        setStep(STEP_THANK_YOU);
       }
     } catch (error) {
       console.error(error);
