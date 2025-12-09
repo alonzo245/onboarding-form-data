@@ -28,6 +28,14 @@ export function OnboardingWizard() {
     dateOfBirth: string;
   }>({ firstName: "", lastName: "", dateOfBirth: "" });
 
+  const onPrevious = () => {
+    if (step === STEP_PERSONAL_DETAILS) {
+      setStep(STEP_EMAIL);
+    } else if (step === STEP_REVIEW) {
+      setStep(STEP_PERSONAL_DETAILS);
+    }
+  };
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
@@ -77,7 +85,7 @@ export function OnboardingWizard() {
             }}
           />
         </Step>
-        <Footer />
+        <Footer currentStep={step} onPrevious={onPrevious} />
       </form>
     </div>
   );
