@@ -28,6 +28,7 @@ import { stepsConfig } from "./config";
 export function OnboardingWizard() {
   const [step, setStep] = useState<StepKey>(STEP_EMAIL);
   const [mode, setMode] = useState(STEP_MODE_CREATE);
+  const [resetKey, setResetKey] = useState(0);
 
   const emailStepData = useRef<EmailStepData>({ ...stepsConfig.email });
   const personalDetailsStepData = useRef<PersonalDetailsStepData>({
@@ -43,6 +44,7 @@ export function OnboardingWizard() {
     emailStepData,
     personalDetailsStepData,
     homeAddressStepData,
+    onReset: () => setResetKey((prev) => prev + 1),
   });
 
   const onPrevious = () => {
@@ -66,13 +68,22 @@ export function OnboardingWizard() {
             <Header currentStep={step} mode={mode} setStep={setStep} />
             <div className="mt-6 sm:mt-8">
               <Step visible={step === STEP_EMAIL}>
-                <Email initialValues={emailStepData.current} />
+                <Email
+                  key={`email-${resetKey}`}
+                  initialValues={emailStepData}
+                />
               </Step>
               <Step visible={step === STEP_PERSONAL_DETAILS}>
-                <PersonalDetails />
+                <PersonalDetails
+                  key={`personalDetails-${resetKey}`}
+                  initialValues={personalDetailsStepData.current}
+                />
               </Step>
               <Step visible={step === STEP_HOME_ADDRESS}>
-                <HomeAddress initialValues={homeAddressStepData.current} />
+                <HomeAddress
+                  key={`homeAddress-${resetKey}`}
+                  initialValues={homeAddressStepData.current}
+                />
               </Step>
               <Step visible={step === STEP_REVIEW}>
                 <Review

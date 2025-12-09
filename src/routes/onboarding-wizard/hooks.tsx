@@ -28,6 +28,7 @@ interface UseOnboardingSubmitProps {
   emailStepData: React.MutableRefObject<EmailStepData>;
   personalDetailsStepData: React.MutableRefObject<PersonalDetailsStepData>;
   homeAddressStepData: React.MutableRefObject<HomeAddressStepData>;
+  onReset?: () => void;
 }
 
 export function useOnboardingSubmit({
@@ -36,6 +37,7 @@ export function useOnboardingSubmit({
   emailStepData,
   personalDetailsStepData,
   homeAddressStepData,
+  onReset,
 }: UseOnboardingSubmitProps) {
   const { setZodError, clearErrors } = useErrorsStore();
 
@@ -88,9 +90,11 @@ export function useOnboardingSubmit({
         }
 
         clearErrors();
-        emailStepData.current = stepsConfig.email;
-        personalDetailsStepData.current = stepsConfig.personalDetails;
-        homeAddressStepData.current = stepsConfig.homeAddress;
+        emailStepData.current = { ...stepsConfig.email };
+        personalDetailsStepData.current = { ...stepsConfig.personalDetails };
+        homeAddressStepData.current = { ...stepsConfig.homeAddress };
+
+        onReset?.();
         setStep(STEP_THANK_YOU);
       }
     } catch (error) {
