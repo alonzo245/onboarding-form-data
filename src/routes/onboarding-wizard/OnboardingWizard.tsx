@@ -76,26 +76,34 @@ export function OnboardingWizard() {
   };
 
   return (
-    <div>
-      <h1>Onboarding Wizard</h1>
-      <Form onSubmit={onSubmit}>
-        <Header currentStep={step} mode={mode} />
-        <Step visible={step === STEP_EMAIL}>
-          <Email />
-        </Step>
-        <Step visible={step === STEP_PERSONAL_DETAILS}>
-          <PersonalDetails />
-        </Step>
-        <Step visible={step === STEP_REVIEW}>
-          <Review
-            formData={{
-              ...emailStepData.current,
-              ...personalDetailsStepData.current,
-            }}
-          />
-        </Step>
-        <Footer currentStep={step} onPrevious={onPrevious} />
-      </Form>
+    <div className="min-h-screen bg-gray-900 py-4 px-4 sm:py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-2xl">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-100 mb-6 sm:mb-8">
+          Onboarding Wizard
+        </h1>
+        <Form onSubmit={onSubmit}>
+          <div className="bg-gray-800 rounded-lg shadow-lg border border-gray-700 p-4 sm:p-6 lg:p-8">
+            <Header currentStep={step} mode={mode} />
+            <div className="mt-6 sm:mt-8">
+              <Step visible={step === STEP_EMAIL}>
+                <Email />
+              </Step>
+              <Step visible={step === STEP_PERSONAL_DETAILS}>
+                <PersonalDetails />
+              </Step>
+              <Step visible={step === STEP_REVIEW}>
+                <Review
+                  formData={{
+                    ...emailStepData.current,
+                    ...personalDetailsStepData.current,
+                  }}
+                />
+              </Step>
+            </div>
+            <Footer currentStep={step} onPrevious={onPrevious} />
+          </div>
+        </Form>
+      </div>
     </div>
   );
 }
