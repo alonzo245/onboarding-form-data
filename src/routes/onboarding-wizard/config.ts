@@ -7,22 +7,4 @@ export const stepsConfig = {
     lastName: "",
     dateOfBirth: "",
   },
-  homeAddress: {
-    countryCode: "",
-    city: "",
-    street: "",
-    houseNumber: "",
-    postalCode: "",
-  },
-  business: {
-    businessName: "",
-    incorporationDate: "",
-    ownerAddress: {
-      countryCode: "",
-      city: "",
-      street: "",
-      houseNumber: "",
-      postalCode: "",
-    },
-  },
 };
