@@ -62,7 +62,7 @@ export function OnboardingWizard() {
     <div>
       <h1>Onboarding Wizard</h1>
       <form onSubmit={onSubmit}>
-        <Header />
+        <Header currentStep={step} mode={mode} />
         <Step visible={step === STEP_EMAIL}>
           <Email />
         </Step>
