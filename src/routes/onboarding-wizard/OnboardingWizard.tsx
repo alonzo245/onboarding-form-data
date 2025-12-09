@@ -48,7 +48,7 @@ export function OnboardingWizard() {
     } else if (step === STEP_HOME_ADDRESS) {
       setStep(STEP_PERSONAL_DETAILS);
     } else if (step === STEP_REVIEW) {
-      setStep(STEP_HOME_ADDRESS);
+      setStep(STEP_PERSONAL_DETAILS);
     }
   };
 
