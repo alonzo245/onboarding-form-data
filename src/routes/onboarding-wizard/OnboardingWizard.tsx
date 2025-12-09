@@ -9,9 +9,15 @@ import {
 } from "./validation";
 import { Review } from "./steps/Review";
 import { Step } from "./common/Step";
+import {
+  STEP_EMAIL,
+  STEP_PERSONAL_DETAILS,
+  STEP_REVIEW,
+  type StepKey,
+} from "./constants";
 
 export function OnboardingWizard() {
-  const [step, setStep] = useState<string>("email");
+  const [step, setStep] = useState<StepKey>(STEP_EMAIL);
 
   const emailStepData = useRef<{ email: string }>({ email: "" });
   const personalDetailsStepData = useRef<{
@@ -22,21 +28,18 @@ export function OnboardingWizard() {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(e.target);
-
     const formData = new FormData(e.target as HTMLFormElement);
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
 
     try {
-      if (step === "email") {
+      if (step === STEP_EMAIL) {
         const validatedData = emailStepValidation.parse({ email: data.email });
         if (validatedData) {
           emailStepData.current = validatedData;
-          setStep("personalDetails");
+          setStep(STEP_PERSONAL_DETAILS);
         }
         return;
-      } else if (step === "personalDetails") {
+      } else if (step === STEP_PERSONAL_DETAILS) {
         const validatedData = personalDetailsStepValidation.parse({
           firstName: data.firstName,
           lastName: data.lastName,
@@ -44,7 +47,7 @@ export function OnboardingWizard() {
         });
         if (validatedData) {
           personalDetailsStepData.current = validatedData;
-          setStep("review");
+          setStep(STEP_REVIEW);
         }
         return;
       }
@@ -58,13 +61,13 @@ export function OnboardingWizard() {
       <h1>Onboarding Wizard</h1>
       <form onSubmit={onSubmit}>
         <Header />
-        <Step visible={step === "email"}>
+        <Step visible={step === STEP_EMAIL}>
           <Email />
         </Step>
-        <Step visible={step === "personalDetails"}>
+        <Step visible={step === STEP_PERSONAL_DETAILS}>
           <PersonalDetails />
         </Step>
-        <Step visible={step === "review"}>
+        <Step visible={step === STEP_REVIEW}>
           <Review
             formData={{
               ...emailStepData.current,
