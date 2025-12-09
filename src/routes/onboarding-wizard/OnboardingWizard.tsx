@@ -103,7 +103,7 @@ export function OnboardingWizard() {
 
   return (
     <div className="min-h-screen bg-gray-900 py-4 px-4 sm:py-8 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto max-w-4xl">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-100 mb-6 sm:mb-8">
           Onboarding Wizard
         </h1>

@@ -36,13 +36,6 @@ export function Header({
 
   return (
     <div className="border-b border-gray-700 pb-4 sm:pb-6">
-      <style>
-        {`
-          .header-scroll-container::-webkit-scrollbar {
-            display: none;
-          }
-        `}
-      </style>
       <div
         ref={scrollContainerRef}
         className="header-scroll-container flex overflow-x-auto gap-2 sm:gap-4 sm:flex-wrap scroll-smooth"
@@ -66,17 +59,9 @@ export function Header({
                 isActive ? "text-blue-400" : "text-gray-400"
               )}
             >
-              {index > 0 && (
-                <span
-                  className={clsx(
-                    "hidden sm:block w-8 h-0.5",
-                    isActive || isCompleted ? "bg-blue-500" : "bg-gray-600"
-                  )}
-                />
-              )}
               <div
                 className={clsx(
-                  "flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 transition-colors",
+                  "flex items-center justify-center w-6 h-6 sm:w-6 sm:h-6 rounded-full border-2 transition-colors",
                   isActive
                     ? "border-blue-500 bg-blue-900/30 text-blue-400"
                     : "border-gray-600 bg-gray-700 text-gray-400"

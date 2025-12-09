@@ -21,7 +21,7 @@ export function PersonalDetails() {
             type="text"
             placeholder="First Name"
             name="firstName"
-            className="w-full px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm"
+            className="w-full sm:max-w-md px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm"
           />
           {getFieldError("firstName") && (
             <div className="text-red-400 text-sm mt-1.5">
@@ -41,7 +41,7 @@ export function PersonalDetails() {
             type="text"
             placeholder="Last Name"
             name="lastName"
-            className="w-full px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm"
+            className="w-full sm:max-w-md px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm"
           />
           {getFieldError("lastName") && (
             <div className="text-red-400 text-sm mt-1.5">
@@ -60,7 +60,7 @@ export function PersonalDetails() {
             id="dateOfBirth"
             type="date"
             name="dateOfBirth"
-            className="w-full px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm"
+            className="w-full sm:max-w-xs px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm"
           />
           {getFieldError("dateOfBirth") && (
             <div className="text-red-400 text-sm mt-1.5">

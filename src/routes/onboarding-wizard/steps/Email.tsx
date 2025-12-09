@@ -8,7 +8,12 @@ export function Email() {
   return (
     <div className="space-y-4">
       <h2 className="text-xl sm:text-2xl font-semibold text-gray-100">Email</h2>
-      <TextField name="email" type="email" isRequired className="w-full">
+      <TextField
+        name="email"
+        type="email"
+        isRequired
+        className="w-full sm:max-w-md"
+      >
         <Label className="block text-sm font-medium text-gray-300 mb-2">
           Email
         </Label>

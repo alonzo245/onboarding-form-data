@@ -21,7 +21,7 @@ export function HomeAddress() {
             type="text"
             placeholder="Street address"
             name="addressLine1"
-            className="w-full px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm"
+            className="w-full sm:max-w-md px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm"
           />
           {getFieldError("addressLine1") && (
             <div className="text-red-400 text-sm mt-1.5">
@@ -41,7 +41,7 @@ export function HomeAddress() {
             type="text"
             placeholder="Apartment, suite, etc. (optional)"
             name="addressLine2"
-            className="w-full px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm"
+            className="w-full sm:max-w-md px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm"
           />
           {getFieldError("addressLine2") && (
             <div className="text-red-400 text-sm mt-1.5">
