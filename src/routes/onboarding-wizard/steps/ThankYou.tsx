@@ -2,12 +2,14 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 // @ts-ignore - canvas-confetti doesn't have type definitions
 import confetti from "canvas-confetti";
+import { STEP_EMAIL, StepKey } from "../constants";
 
 interface ThankYouProps {
   isVisible?: boolean;
+  setStep?: (step: StepKey) => void;
 }
 
-export function ThankYou({ isVisible = true }: ThankYouProps) {
+export function ThankYou({ isVisible = true, setStep }: ThankYouProps) {
   const hasTriggeredRef = useRef(false);
   const navigate = useNavigate();
 
@@ -113,7 +115,7 @@ export function ThankYou({ isVisible = true }: ThankYouProps) {
 
       <div className="pt-4">
         <button
-          onClick={() => navigate("/onboarding")}
+          onClick={() => setStep?.(STEP_EMAIL as StepKey)}
           className="px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-colors"
         >
           Back to Main Page

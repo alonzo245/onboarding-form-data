@@ -1,6 +1,11 @@
 import { useErrorsStore } from "../store/errorsStore";
+import { HomeAddressStepData } from "../types";
 
-export function HomeAddress() {
+export function HomeAddress({
+  initialValues,
+}: {
+  initialValues: HomeAddressStepData;
+}) {
   const getFieldError = useErrorsStore((state) => state.getFieldError);
 
   return (

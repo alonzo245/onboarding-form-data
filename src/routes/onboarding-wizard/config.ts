@@ -1,6 +1,6 @@
 export const stepsConfig = {
   email: {
-    email: "",
+    email: "sdas",
   },
   personalDetails: {
     firstName: "",

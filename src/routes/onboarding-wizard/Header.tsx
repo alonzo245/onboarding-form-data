@@ -43,7 +43,7 @@ export function Header({ currentStep, mode, setStep }: HeaderProps) {
   }, [currentStep]);
 
   const handleStepClick = (clickedStep: StepKey) => {
-    if (!setStep) return;
+    if (!setStep || currentStep === STEP_THANK_YOU) return;
 
     const stepOrder = [
       STEP_EMAIL,
@@ -60,6 +60,8 @@ export function Header({ currentStep, mode, setStep }: HeaderProps) {
     }
   };
 
+  const isThankYouStep = currentStep === STEP_THANK_YOU;
+
   return (
     <div className="border-b border-gray-700 pb-4 sm:pb-6">
       <div
@@ -75,7 +77,8 @@ export function Header({ currentStep, mode, setStep }: HeaderProps) {
           const stepKeys = Object.keys(stepsConfig) as StepKey[];
           const currentStepIndex = stepKeys.indexOf(currentStep as StepKey);
           const stepIndex = stepKeys.indexOf(stepName as StepKey);
-          const isClickable = stepIndex <= currentStepIndex && setStep;
+          const isClickable =
+            !isThankYouStep && stepIndex <= currentStepIndex && setStep;
           const isCompleted = stepIndex < currentStepIndex;
 
           const handleClick = () => {
@@ -97,7 +100,8 @@ export function Header({ currentStep, mode, setStep }: HeaderProps) {
                 isClickable
                   ? "cursor-pointer hover:text-blue-300"
                   : "cursor-default",
-                isCompleted && "opacity-75"
+                isCompleted && "opacity-75",
+                isThankYouStep && "opacity-50"
               )}
             >
               <div
@@ -108,7 +112,7 @@ export function Header({ currentStep, mode, setStep }: HeaderProps) {
                     : isCompleted
                     ? "border-gray-500 bg-gray-600 text-gray-300"
                     : "border-gray-600 bg-gray-700 text-gray-400",
-                  isClickable && "hover:border-blue-400"
+                  isClickable && !isThankYouStep && "hover:border-blue-400"
                 )}
               >
                 {index + 1}

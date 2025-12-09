@@ -15,23 +15,19 @@ import {
 } from "./constants";
 import { useErrorsStore } from "./store/errorsStore";
 import { submitOnboardingData } from "./queries";
+import { stepsConfig } from "./config";
+import {
+  EmailStepData,
+  PersonalDetailsStepData,
+  HomeAddressStepData,
+} from "./types";
 
 interface UseOnboardingSubmitProps {
   step: StepKey;
   setStep: (step: StepKey) => void;
-  emailStepData: React.MutableRefObject<{ email: string }>;
-  personalDetailsStepData: React.MutableRefObject<{
-    firstName: string;
-    lastName: string;
-    dateOfBirth: string;
-  }>;
-  homeAddressStepData: React.MutableRefObject<{
-    addressLine1: string;
-    addressLine2?: string;
-    city: string;
-    state: string;
-    zip: string;
-  }>;
+  emailStepData: React.MutableRefObject<EmailStepData>;
+  personalDetailsStepData: React.MutableRefObject<PersonalDetailsStepData>;
+  homeAddressStepData: React.MutableRefObject<HomeAddressStepData>;
 }
 
 export function useOnboardingSubmit({
@@ -83,12 +79,18 @@ export function useOnboardingSubmit({
         }
         return;
       } else if (step === STEP_REVIEW) {
-        await submitOnboardingData({
-          ...emailStepData.current,
-          ...personalDetailsStepData.current,
-          ...homeAddressStepData.current,
-        });
+        if (Math.random() >= 0.5) {
+          await submitOnboardingData({
+            ...emailStepData.current,
+            ...personalDetailsStepData.current,
+            ...homeAddressStepData.current,
+          });
+        }
+
         clearErrors();
+        emailStepData.current = stepsConfig.email;
+        personalDetailsStepData.current = stepsConfig.personalDetails;
+        homeAddressStepData.current = stepsConfig.homeAddress;
         setStep(STEP_THANK_YOU);
       }
     } catch (error) {

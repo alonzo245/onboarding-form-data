@@ -1,14 +1,13 @@
-interface ReviewData {
-  email?: string;
-  firstName?: string;
-  lastName?: string;
-  dateOfBirth?: string;
-  addressLine1?: string;
-  addressLine2?: string;
-  city?: string;
-  state?: string;
-  zip?: string;
-}
+import {
+  EmailStepData,
+  PersonalDetailsStepData,
+  HomeAddressStepData,
+} from "../types";
+
+interface ReviewData
+  extends Partial<EmailStepData>,
+    Partial<PersonalDetailsStepData>,
+    Partial<HomeAddressStepData> {}
 
 interface ReviewSectionProps {
   title: string;

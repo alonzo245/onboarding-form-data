@@ -1,7 +1,8 @@
 import { FieldError, Input, Label, TextField } from "react-aria-components";
 import { useErrorsStore } from "../store/errorsStore";
+import { EmailStepData } from "../types";
 
-export function Email() {
+export function Email({ initialValues }: { initialValues: EmailStepData }) {
   const getFieldError = useErrorsStore((state) => state.getFieldError);
   const emailError = getFieldError("email");
 
@@ -13,6 +14,7 @@ export function Email() {
         type="email"
         isRequired
         className="w-full sm:max-w-md"
+        defaultValue={initialValues.email}
       >
         <Label className="block text-sm font-medium text-gray-300 mb-2">
           Email

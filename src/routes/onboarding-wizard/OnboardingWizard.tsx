@@ -18,24 +18,28 @@ import {
 } from "./constants";
 import { Form } from "react-aria-components";
 import { useOnboardingSubmit } from "./hooks";
+import {
+  EmailStepData,
+  PersonalDetailsStepData,
+  HomeAddressStepData,
+} from "./types";
 
 export function OnboardingWizard() {
   const [step, setStep] = useState<StepKey>(STEP_EMAIL);
   const [mode, setMode] = useState(STEP_MODE_CREATE);
 
-  const emailStepData = useRef<{ email: string }>({ email: "" });
-  const personalDetailsStepData = useRef<{
-    firstName: string;
-    lastName: string;
-    dateOfBirth: string;
-  }>({ firstName: "", lastName: "", dateOfBirth: "" });
-  const homeAddressStepData = useRef<{
-    addressLine1: string;
-    addressLine2?: string;
-    city: string;
-    state: string;
-    zip: string;
-  }>({ addressLine1: "", city: "", state: "", zip: "" });
+  const emailStepData = useRef<EmailStepData>({ email: "" });
+  const personalDetailsStepData = useRef<PersonalDetailsStepData>({
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+  });
+  const homeAddressStepData = useRef<HomeAddressStepData>({
+    addressLine1: "",
+    city: "",
+    state: "",
+    zip: "",
+  });
 
   const { handleOnSubmit } = useOnboardingSubmit({
     step,
@@ -55,45 +59,24 @@ export function OnboardingWizard() {
     }
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    // Random 50% success/fail logic for Review step submission
-    if (step === STEP_REVIEW) {
-      if (!(Math.random() >= 0.5)) {
-        // Simulate submission failure
-        const error = new Error(
-          "Failed to submit onboarding data. Please try again."
-        );
-        console.error(error);
-        // You can add error handling here (e.g., show error message to user)
-        return;
-      } else {
-        setStep(STEP_THANK_YOU);
-      }
-    }
-
-    handleOnSubmit(e);
-  };
-
   return (
     <div className="min-h-screen bg-gray-900 py-4 px-4 sm:py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-100 mb-6 sm:mb-8">
           Onboarding Wizard
         </h1>
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={handleOnSubmit}>
           <div className="bg-gray-800 rounded-lg shadow-lg border border-gray-700 p-4 sm:p-6 lg:p-8">
             <Header currentStep={step} mode={mode} setStep={setStep} />
             <div className="mt-6 sm:mt-8">
               <Step visible={step === STEP_EMAIL}>
-                <Email />
+                <Email initialValues={emailStepData.current} />
               </Step>
               <Step visible={step === STEP_PERSONAL_DETAILS}>
                 <PersonalDetails />
               </Step>
               <Step visible={step === STEP_HOME_ADDRESS}>
-                <HomeAddress />
+                <HomeAddress initialValues={homeAddressStepData.current} />
               </Step>
               <Step visible={step === STEP_REVIEW}>
                 <Review
@@ -105,7 +88,10 @@ export function OnboardingWizard() {
                 />
               </Step>
               {step === STEP_THANK_YOU && (
-                <ThankYou isVisible={step === STEP_THANK_YOU} />
+                <ThankYou
+                  isVisible={step === STEP_THANK_YOU}
+                  setStep={setStep}
+                />
               )}
             </div>
             {step !== STEP_THANK_YOU && (
