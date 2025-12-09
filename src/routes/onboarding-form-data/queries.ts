@@ -26,7 +26,7 @@ export const submitOnboardingData = async (
   await new Promise((resolve) => setTimeout(resolve, 1500));
 
   // Mock URL endpoint
-  const response = await fetch("/onboarding/submit", {
+  const response = await fetch("/onboarding-form-data/submit", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -10,7 +10,7 @@
    <Link to={ONBOARDING_PATHS.EMAIL} />
 
    // ❌ Bad
-   <Link to="/onboarding/email" />
+   <Link to="/onboarding-form-data/email" />
    ```
 
 2. **Route organization** - Define routes in `router.tsx` using constants

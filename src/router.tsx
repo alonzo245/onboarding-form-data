@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { OnboardingWizard } from "./routes/onboarding-wizard/OnboardingWizard";
+import { OnboardingWizard } from "./routes/onboarding-form-data/OnboardingWizard";
 import { ONBOARDING_PATHS, ROOT_PATH } from "./constants";
 
 const basePath = import.meta.env.BASE_URL || ROOT_PATH;

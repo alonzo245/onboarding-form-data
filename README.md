@@ -31,7 +31,7 @@ A multi-step onboarding form wizard built with React, TypeScript, and Tailwind C
 ```
 src/
 ├── routes/
-│   └── onboarding-wizard/
+│   └── onboarding/
 │       ├── OnboardingWizard.tsx    # Main wizard component
 │       ├── Header.tsx              # Step indicator with navigation
 │       ├── Footer.tsx               # Previous/Next buttons
@@ -137,11 +137,11 @@ npm run test:run  # Run tests once
 
 ## Configuration
 
-Step configuration and default values can be modified in `src/routes/onboarding-wizard/config.ts`.
+Step configuration and default values can be modified in `src/routes/onboarding/config.ts`.
 
 ## Type Definitions
 
-All form data types are defined in `src/routes/onboarding-wizard/types.ts`:
+All form data types are defined in `src/routes/onboarding/types.ts`:
 
 - `EmailStepData`
 - `PersonalDetailsStepData`
@@ -149,7 +149,7 @@ All form data types are defined in `src/routes/onboarding-wizard/types.ts`:
 
 ## Validation Schemas
 
-Validation schemas are defined in `src/routes/onboarding-wizard/validation.ts` using Zod:
+Validation schemas are defined in `src/routes/onboarding/validation.ts` using Zod:
 
 - `emailStepValidation`
 - `personalDetailsStepValidation`
