@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { Email } from "./steps/Email";
 import { PersonalDetails } from "./steps/PersonalDetails";
-import clsx from "clsx";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import {
@@ -9,16 +8,7 @@ import {
   personalDetailsStepValidation,
 } from "./validation";
 import { Review } from "./steps/Review";
-
-function Step({
-  children,
-  visible,
-}: {
-  children: React.ReactNode;
-  visible: boolean;
-}) {
-  return <div className={clsx(visible ? "block" : "hidden")}>{children}</div>;
-}
+import { Step } from "./common/Step";
 
 export function OnboardingWizard() {
   const [step, setStep] = useState<string>("email");
@@ -58,7 +48,6 @@ export function OnboardingWizard() {
         }
         return;
       }
-      console.log({});
     } catch (error) {
       console.error(error);
     }
