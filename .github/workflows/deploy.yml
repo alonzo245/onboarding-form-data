@@ -34,7 +34,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          BASE_URL: "/onboarding-wizard/"
+          BASE_URL: "/onboarding/"
 
       - name: Create 404.html for SPA routing
         run: cp dist/index.html dist/404.html
