@@ -11,7 +11,7 @@ export const stepsConfig = {
     addressLine1: "",
     addressLine2: "",
     city: "",
-    state: "",
+    state: "AZ",
     zip: "",
   },
   review: {},

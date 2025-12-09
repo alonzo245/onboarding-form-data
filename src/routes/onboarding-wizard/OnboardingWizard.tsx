@@ -5,6 +5,7 @@ import { HomeAddress } from "./steps/HomeAddress";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { Review } from "./steps/Review";
+import { ThankYou } from "./steps/ThankYou";
 import { Step } from "./common/Step";
 import {
   STEP_EMAIL,
@@ -12,6 +13,7 @@ import {
   STEP_PERSONAL_DETAILS,
   STEP_HOME_ADDRESS,
   STEP_REVIEW,
+  STEP_THANK_YOU,
   type StepKey,
 } from "./constants";
 import { Form } from "react-aria-components";
@@ -51,6 +53,7 @@ export function OnboardingWizard() {
     } else if (step === STEP_REVIEW) {
       setStep(STEP_PERSONAL_DETAILS);
     }
+    // Don't allow going back from ThankYou step
   };
 
   return (
@@ -81,8 +84,13 @@ export function OnboardingWizard() {
                   }}
                 />
               </Step>
+              {step === STEP_THANK_YOU && (
+                <ThankYou isVisible={step === STEP_THANK_YOU} />
+              )}
             </div>
-            <Footer currentStep={step} onPrevious={onPrevious} />
+            {step !== STEP_THANK_YOU && (
+              <Footer currentStep={step} onPrevious={onPrevious} />
+            )}
           </div>
         </Form>
       </div>

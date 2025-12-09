@@ -1,5 +1,13 @@
 import { useErrorsStore } from "../store/errorsStore";
 
+const getTodayDate = (): string => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
 export function PersonalDetails() {
   const getFieldError = useErrorsStore((state) => state.getFieldError);
 
@@ -60,6 +68,7 @@ export function PersonalDetails() {
             id="dateOfBirth"
             type="date"
             name="dateOfBirth"
+            defaultValue={getTodayDate()}
             className="w-full sm:max-w-xs px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm"
           />
           {getFieldError("dateOfBirth") && (
