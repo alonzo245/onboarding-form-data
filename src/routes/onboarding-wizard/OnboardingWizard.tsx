@@ -11,6 +11,7 @@ import { Review } from "./steps/Review";
 import { Step } from "./common/Step";
 import {
   STEP_EMAIL,
+  STEP_MODE_CREATE,
   STEP_PERSONAL_DETAILS,
   STEP_REVIEW,
   type StepKey,
@@ -18,6 +19,7 @@ import {
 
 export function OnboardingWizard() {
   const [step, setStep] = useState<StepKey>(STEP_EMAIL);
+  const [mode, setMode] = useState(STEP_MODE_CREATE);
 
   const emailStepData = useRef<{ email: string }>({ email: "" });
   const personalDetailsStepData = useRef<{
