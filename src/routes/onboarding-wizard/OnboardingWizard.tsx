@@ -1,11 +1,13 @@
 import { useRef, useState } from "react";
 import { Email } from "./steps/Email";
 import { PersonalDetails } from "./steps/PersonalDetails";
+import { HomeAddress } from "./steps/HomeAddress";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import {
   emailStepValidation,
   personalDetailsStepValidation,
+  homeAddressStepValidation,
 } from "./validation";
 import { Review } from "./steps/Review";
 import { Step } from "./common/Step";
@@ -13,6 +15,7 @@ import {
   STEP_EMAIL,
   STEP_MODE_CREATE,
   STEP_PERSONAL_DETAILS,
+  STEP_HOME_ADDRESS,
   STEP_REVIEW,
   type StepKey,
 } from "./constants";
@@ -31,12 +34,21 @@ export function OnboardingWizard() {
     lastName: string;
     dateOfBirth: string;
   }>({ firstName: "", lastName: "", dateOfBirth: "" });
+  const homeAddressStepData = useRef<{
+    addressLine1: string;
+    addressLine2?: string;
+    city: string;
+    state: string;
+    zip: string;
+  }>({ addressLine1: "", city: "", state: "", zip: "" });
 
   const onPrevious = () => {
     if (step === STEP_PERSONAL_DETAILS) {
       setStep(STEP_EMAIL);
-    } else if (step === STEP_REVIEW) {
+    } else if (step === STEP_HOME_ADDRESS) {
       setStep(STEP_PERSONAL_DETAILS);
+    } else if (step === STEP_REVIEW) {
+      setStep(STEP_HOME_ADDRESS);
     }
   };
 
@@ -63,6 +75,20 @@ export function OnboardingWizard() {
         if (validatedData) {
           clearErrors();
           personalDetailsStepData.current = validatedData;
+          setStep(STEP_HOME_ADDRESS);
+        }
+        return;
+      } else if (step === STEP_HOME_ADDRESS) {
+        const validatedData = homeAddressStepValidation.parse({
+          addressLine1: data.addressLine1,
+          addressLine2: data.addressLine2 || undefined,
+          city: data.city,
+          state: data.state,
+          zip: data.zip,
+        });
+        if (validatedData) {
+          clearErrors();
+          homeAddressStepData.current = validatedData;
           setStep(STEP_REVIEW);
         }
         return;
@@ -91,11 +117,15 @@ export function OnboardingWizard() {
               <Step visible={step === STEP_PERSONAL_DETAILS}>
                 <PersonalDetails />
               </Step>
+              <Step visible={step === STEP_HOME_ADDRESS}>
+                <HomeAddress />
+              </Step>
               <Step visible={step === STEP_REVIEW}>
                 <Review
                   formData={{
                     ...emailStepData.current,
                     ...personalDetailsStepData.current,
+                    ...homeAddressStepData.current,
                   }}
                 />
               </Step>

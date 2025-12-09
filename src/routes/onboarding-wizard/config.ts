@@ -7,4 +7,13 @@ export const stepsConfig = {
     lastName: "",
     dateOfBirth: "",
   },
+  homeAddress: {
+    addressLine1: "",
+    addressLine2: "",
+    city: "",
+    state: "",
+    zip: "",
+  },
+  review: {},
+  thankYou: {},
 };
