@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useState } from "react";
 import { ZodError } from "zod";
 import {
   emailStepValidation,
@@ -28,7 +28,6 @@ interface UseOnboardingSubmitProps {
   emailStepData: React.MutableRefObject<EmailStepData>;
   personalDetailsStepData: React.MutableRefObject<PersonalDetailsStepData>;
   homeAddressStepData: React.MutableRefObject<HomeAddressStepData>;
-  onReset?: () => void;
 }
 
 export function useOnboardingSubmit({
@@ -37,9 +36,9 @@ export function useOnboardingSubmit({
   emailStepData,
   personalDetailsStepData,
   homeAddressStepData,
-  onReset,
 }: UseOnboardingSubmitProps) {
   const { setZodError, clearErrors } = useErrorsStore();
+  const [resetKey, setResetKey] = useState(0);
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -93,8 +92,7 @@ export function useOnboardingSubmit({
         emailStepData.current = { ...stepsConfig.email };
         personalDetailsStepData.current = { ...stepsConfig.personalDetails };
         homeAddressStepData.current = { ...stepsConfig.homeAddress };
-
-        onReset?.();
+        setResetKey((prev) => prev + 1);
         setStep(STEP_THANK_YOU);
       }
     } catch (error) {
@@ -105,5 +103,5 @@ export function useOnboardingSubmit({
     }
   };
 
-  return { handleOnSubmit };
+  return { handleOnSubmit, resetKey };
 }

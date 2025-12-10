@@ -28,7 +28,6 @@ import { stepsConfig } from "./config";
 export function OnboardingWizard() {
   const [step, setStep] = useState<StepKey>(STEP_EMAIL);
   const [mode, setMode] = useState(STEP_MODE_CREATE);
-  const [resetKey, setResetKey] = useState(0);
 
   const emailStepData = useRef<EmailStepData>({ ...stepsConfig.email });
   const personalDetailsStepData = useRef<PersonalDetailsStepData>({
@@ -38,13 +37,12 @@ export function OnboardingWizard() {
     ...stepsConfig.homeAddress,
   });
 
-  const { handleOnSubmit } = useOnboardingSubmit({
+  const { handleOnSubmit, resetKey } = useOnboardingSubmit({
     step,
     setStep,
     emailStepData,
     personalDetailsStepData,
     homeAddressStepData,
-    onReset: () => setResetKey((prev) => prev + 1),
   });
 
   const onPrevious = () => {
