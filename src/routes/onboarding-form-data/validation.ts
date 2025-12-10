@@ -8,13 +8,13 @@ export const emailStepValidation = z.object({
 export const personalDetailsStepValidation = z.object({
   firstName: z
     .string()
-    .min(1)
-    .regex(/^[a-zA-Z]+$/),
+    .min(1, "First name is required")
+    .regex(/^[a-zA-Z]+$/, "First name must contain only letters"),
   lastName: z
     .string()
-    .min(1)
-    .regex(/^[a-zA-Z]+$/),
-  dateOfBirth: z.string().min(1),
+    .min(1, "Last name is required")
+    .regex(/^[a-zA-Z]+$/, "Last name must contain only letters"),
+  dateOfBirth: z.string().min(1, "Date of birth is required"),
 });
 
 export const homeAddressStepValidation = z.object({
