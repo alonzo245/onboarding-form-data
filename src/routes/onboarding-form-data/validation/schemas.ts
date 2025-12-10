@@ -28,10 +28,16 @@ export const homeAddressStepValidation = z.object({
     .regex(/^\d{5}(-\d{4})?$/, "Invalid ZIP code format"),
 });
 
+const numberString = (label: string) =>
+  z
+    .string()
+    .min(1, `${label} is required`)
+    .regex(/^-?\d+(\.\d+)?$/, `${label} must be a valid number`);
+
 export const financialDetailsStepValidation = z.object({
-  income: z.string().min(1, "Income is required"),
-  expenses: z.string().min(1, "Expenses are required"),
-  assets: z.string().min(1, "Assets are required"),
-  liabilities: z.string().min(1, "Liabilities are required"),
-  netWorth: z.string().min(1, "Net worth is required"),
+  income: numberString("Income"),
+  expenses: numberString("Expenses"),
+  assets: numberString("Assets"),
+  liabilities: numberString("Liabilities"),
+  netWorth: numberString("Net worth"),
 });
