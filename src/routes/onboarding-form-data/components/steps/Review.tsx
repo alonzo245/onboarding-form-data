@@ -3,7 +3,7 @@ import {
   PersonalDetailsStepData,
   HomeAddressStepData,
   FinancialDetailsStepData,
-} from "../types";
+} from "../../types";
 
 interface ReviewData
   extends Partial<EmailStepData>,
