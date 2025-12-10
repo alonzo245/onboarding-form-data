@@ -2,7 +2,7 @@
 import { z } from "zod";
 
 export const emailStepValidation = z.object({
-  email: z.string().email(),
+  email: z.string().email("Invalid email address"),
 });
 
 export const personalDetailsStepValidation = z.object({
