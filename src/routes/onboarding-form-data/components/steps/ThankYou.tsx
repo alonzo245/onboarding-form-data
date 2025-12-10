@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 // @ts-ignore - canvas-confetti doesn't have type definitions
 import confetti from "canvas-confetti";
-import { STEP_EMAIL, StepKey } from "../constants";
+import { STEP_EMAIL, StepKey } from "../../constants";
 
 interface ThankYouProps {
   isVisible?: boolean;

@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
-import { Email } from "./steps/Email";
-import { PersonalDetails } from "./steps/PersonalDetails";
-import { HomeAddress } from "./steps/HomeAddress";
+import { Email } from "./components/steps/Email";
+import { PersonalDetails } from "./components/steps/PersonalDetails";
+import { HomeAddress } from "./components/steps/HomeAddress";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
-import { Review } from "./steps/Review";
-import { ThankYou } from "./steps/ThankYou";
+import { Review } from "./components/steps/Review";
+import { ThankYou } from "./components/steps/ThankYou";
 import { Step } from "./components/Step";
 import {
   STEP_EMAIL,

@@ -1,5 +1,5 @@
-import { useErrorsStore } from "../store/errorsStore";
-import { HomeAddressStepData } from "../types";
+import { useErrorsStore } from "../../store/errorsStore";
+import { HomeAddressStepData } from "../../types";
 
 export function HomeAddress({
   initialValues,

@@ -1,5 +1,5 @@
-import { useErrorsStore } from "../store/errorsStore";
-import { PersonalDetailsStepData } from "../types";
+import { useErrorsStore } from "../../store/errorsStore";
+import { PersonalDetailsStepData } from "../../types";
 
 const getTodayDate = (): string => {
   const today = new Date();

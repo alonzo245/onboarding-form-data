@@ -1,6 +1,6 @@
 import { RefObject } from "react";
-import { useErrorsStore } from "../store/errorsStore";
-import { EmailStepData } from "../types";
+import { useErrorsStore } from "../../store/errorsStore";
+import { EmailStepData } from "../../types";
 
 export function Email({
   initialValues,
