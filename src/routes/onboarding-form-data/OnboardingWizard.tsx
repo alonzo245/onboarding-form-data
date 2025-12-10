@@ -17,13 +17,13 @@ import {
   type StepKey,
 } from "./constants";
 import { Form } from "react-aria-components";
-import { useOnboardingSubmit } from "./hooks";
+import { useOnboardingSubmit } from "./hooks/useOnboardingSubmit";
 import {
   EmailStepData,
   PersonalDetailsStepData,
   HomeAddressStepData,
 } from "./types";
-import { stepsConfig } from "./config";
+import { stepsConfig } from "./config/stepsConfig";
 
 export function OnboardingWizard() {
   const [step, setStep] = useState<StepKey>(STEP_EMAIL);

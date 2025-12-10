@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useEffect, useRef } from "react";
-import { stepsConfig } from "../config";
+import { stepsConfig } from "../config/stepsConfig";
 import {
   type StepKey,
   STEP_EMAIL,

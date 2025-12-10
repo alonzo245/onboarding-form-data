@@ -34,28 +34,32 @@ A multi-step onboarding form wizard built with React, TypeScript, and Tailwind C
 src/
 ├── routes/
 │   └── onboarding-form-data/
-│       ├── OnboardingWizard.tsx    # Main wizard component
-│       ├── Header.tsx              # Step indicator with navigation
-│       ├── Footer.tsx               # Previous/Next buttons
-│       ├── hooks.tsx                # Form submission logic
-│       ├── queries.ts               # API submission functions
-│       ├── types.ts                 # TypeScript type definitions
-│       ├── validation.ts            # Zod validation schemas
-│       ├── constants.tsx            # Step constants
-│       ├── config.ts                # Step configuration
+│       ├── OnboardingWizard.tsx            # Main wizard component
+│       ├── components/
+│       │   ├── Step.tsx
+│       │   ├── Header.tsx
+│       │   ├── Footer.tsx
+│       │   └── steps/
+│       │       ├── Email.tsx
+│       │       ├── PersonalDetails.tsx
+│       │       ├── HomeAddress.tsx
+│       │       ├── Review.tsx
+│       │       └── ThankYou.tsx
+│       ├── hooks/
+│       │   └── useOnboardingSubmit.ts      # Form submission logic
+│       ├── queries/
+│       │   └── submitOnboarding.ts         # API submission functions
+│       ├── validation/
+│       │   └── schemas.ts                  # Zod validation schemas
+│       ├── config/
+│       │   └── stepsConfig.ts              # Step configuration
 │       ├── store/
-│       │   └── errorsStore.ts       # Zustand error store
-│       ├── steps/
-│       │   ├── Email.tsx
-│       │   ├── PersonalDetails.tsx
-│       │   ├── HomeAddress.tsx
-│       │   ├── Review.tsx
-│       │   └── ThankYou.tsx
-│       └── common/
-│           └── Step.tsx             # Step wrapper component
-├── main.tsx                         # App entry point
-├── router.tsx                       # React Router configuration
-└── constants.ts                     # App constants
+│       │   └── errorsStore.ts              # Zustand error store
+│       ├── types.ts                        # TypeScript type definitions
+│       └── constants.tsx                   # Step constants
+├── main.tsx                                # App entry point
+├── router.tsx                              # React Router configuration
+└── constants.ts                            # App constants
 ```
 
 ## Installation

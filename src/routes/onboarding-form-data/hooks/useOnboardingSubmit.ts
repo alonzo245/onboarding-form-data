@@ -4,7 +4,7 @@ import {
   emailStepValidation,
   personalDetailsStepValidation,
   homeAddressStepValidation,
-} from "./validation";
+} from "../validation/schemas";
 import {
   STEP_EMAIL,
   STEP_PERSONAL_DETAILS,
@@ -12,15 +12,15 @@ import {
   STEP_REVIEW,
   STEP_THANK_YOU,
   type StepKey,
-} from "./constants";
-import { useErrorsStore } from "./store/errorsStore";
-import { submitOnboardingData } from "./queries";
-import { stepsConfig } from "./config";
+} from "../constants";
+import { useErrorsStore } from "../store/errorsStore";
+import { submitOnboardingData } from "../queries/submitOnboarding";
+import { stepsConfig } from "../config/stepsConfig";
 import {
   EmailStepData,
   PersonalDetailsStepData,
   HomeAddressStepData,
-} from "./types";
+} from "../types";
 
 interface UseOnboardingSubmitProps {
   step: StepKey;
