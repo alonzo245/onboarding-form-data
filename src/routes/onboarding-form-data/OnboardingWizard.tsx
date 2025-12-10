@@ -13,6 +13,7 @@ import {
   STEP_MODE_CREATE,
   STEP_PERSONAL_DETAILS,
   STEP_HOME_ADDRESS,
+  STEP_FINANCIAL_DETAILS,
   STEP_REVIEW,
   STEP_THANK_YOU,
   type StepKey,
@@ -23,10 +24,12 @@ import {
   EmailStepData,
   PersonalDetailsStepData,
   HomeAddressStepData,
+  FinancialDetailsStepData,
 } from "./types";
 import { stepsConfig } from "./config/stepsConfig";
 import { GITHUB_PAGES_BASE } from "../../router";
 import { useOnboardingPersistence } from "./hooks/useOnboardingPersistence";
+import { FinancialDetails } from "./components/steps/FinancialDetails";
 
 export function OnboardingWizard() {
   const [step, setStep] = useState<StepKey>(STEP_EMAIL);
@@ -41,6 +44,9 @@ export function OnboardingWizard() {
   const homeAddressStepData = useRef<HomeAddressStepData>({
     ...stepsConfig.homeAddress,
   });
+  const financialDetailsStepData = useRef<FinancialDetailsStepData>({
+    ...stepsConfig.financialDetails,
+  });
 
   const { handleOnSubmit, resetKey } = useOnboardingSubmit({
     step,
@@ -48,6 +54,7 @@ export function OnboardingWizard() {
     emailStepData,
     personalDetailsStepData,
     homeAddressStepData,
+    financialDetailsStepData,
   });
 
   const { persist } = useOnboardingPersistence({
@@ -59,6 +66,7 @@ export function OnboardingWizard() {
     emailStepData,
     personalDetailsStepData,
     homeAddressStepData,
+    financialDetailsStepData,
   });
 
   const onPrevious = () => {
@@ -66,8 +74,10 @@ export function OnboardingWizard() {
       setStep(STEP_EMAIL);
     } else if (step === STEP_HOME_ADDRESS) {
       setStep(STEP_PERSONAL_DETAILS);
+    } else if (step === STEP_FINANCIAL_DETAILS) {
+      setStep(STEP_HOME_ADDRESS);
     } else if (step === STEP_REVIEW) {
-      setStep(STEP_PERSONAL_DETAILS);
+      setStep(STEP_FINANCIAL_DETAILS);
     }
   };
 
@@ -102,12 +112,20 @@ export function OnboardingWizard() {
                   onPersist={() => persist()}
                 />
               </Step>
+              <Step visible={step === STEP_FINANCIAL_DETAILS}>
+                <FinancialDetails
+                  key={`financial-${resetKey}`}
+                  initialValues={financialDetailsStepData.current}
+                  onPersist={() => persist()}
+                />
+              </Step>
               <Step visible={step === STEP_REVIEW}>
                 <Review
                   formData={{
                     ...emailStepData.current,
                     ...personalDetailsStepData.current,
                     ...homeAddressStepData.current,
+                    ...financialDetailsStepData.current,
                   }}
                 />
               </Step>

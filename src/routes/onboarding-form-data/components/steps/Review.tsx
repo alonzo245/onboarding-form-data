@@ -2,12 +2,14 @@ import {
   EmailStepData,
   PersonalDetailsStepData,
   HomeAddressStepData,
+  FinancialDetailsStepData,
 } from "../types";
 
 interface ReviewData
   extends Partial<EmailStepData>,
     Partial<PersonalDetailsStepData>,
-    Partial<HomeAddressStepData> {}
+    Partial<HomeAddressStepData>,
+    Partial<FinancialDetailsStepData> {}
 
 interface ReviewSectionProps {
   title: string;
@@ -58,6 +60,11 @@ export function Review({ formData }: { formData: ReviewData }) {
     city,
     state,
     zip,
+    income,
+    expenses,
+    assets,
+    liabilities,
+    netWorth,
   } = formData;
 
   const formatDate = (dateString?: string) => {
@@ -140,6 +147,19 @@ export function Review({ formData }: { formData: ReviewData }) {
                 <ReviewField label="ZIP Code" value={zip} />
               </>
             )}
+          </ReviewSection>
+        )}
+
+        {/* Financial Details Section */}
+        {(income || expenses || assets || liabilities || netWorth) && (
+          <ReviewSection title="Financial Details">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <ReviewField label="Income" value={income} />
+              <ReviewField label="Expenses" value={expenses} />
+              <ReviewField label="Assets" value={assets} />
+              <ReviewField label="Liabilities" value={liabilities} />
+              <ReviewField label="Net Worth" value={netWorth} />
+            </div>
           </ReviewSection>
         )}
       </div>

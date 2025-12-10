@@ -4,11 +4,13 @@ import {
   emailStepValidation,
   personalDetailsStepValidation,
   homeAddressStepValidation,
+  financialDetailsStepValidation,
 } from "../validation/schemas";
 import {
   STEP_EMAIL,
   STEP_PERSONAL_DETAILS,
   STEP_HOME_ADDRESS,
+  STEP_FINANCIAL_DETAILS,
   STEP_REVIEW,
   STEP_THANK_YOU,
   type StepKey,
@@ -20,6 +22,7 @@ import {
   EmailStepData,
   PersonalDetailsStepData,
   HomeAddressStepData,
+  FinancialDetailsStepData,
 } from "../types";
 
 interface UseOnboardingSubmitProps {
@@ -28,6 +31,7 @@ interface UseOnboardingSubmitProps {
   emailStepData: React.MutableRefObject<EmailStepData>;
   personalDetailsStepData: React.MutableRefObject<PersonalDetailsStepData>;
   homeAddressStepData: React.MutableRefObject<HomeAddressStepData>;
+  financialDetailsStepData: React.MutableRefObject<FinancialDetailsStepData>;
 }
 
 export function useOnboardingSubmit({
@@ -36,6 +40,7 @@ export function useOnboardingSubmit({
   emailStepData,
   personalDetailsStepData,
   homeAddressStepData,
+  financialDetailsStepData,
 }: UseOnboardingSubmitProps) {
   const { setZodError, clearErrors } = useErrorsStore();
   const [resetKey, setResetKey] = useState(0);
@@ -76,6 +81,19 @@ export function useOnboardingSubmit({
         });
         if (validatedData) {
           homeAddressStepData.current = validatedData;
+          setStep(STEP_FINANCIAL_DETAILS);
+        }
+        return;
+      } else if (step === STEP_FINANCIAL_DETAILS) {
+        const validatedData = financialDetailsStepValidation.parse({
+          income: data.income,
+          expenses: data.expenses,
+          assets: data.assets,
+          liabilities: data.liabilities,
+          netWorth: data.netWorth,
+        });
+        if (validatedData) {
+          financialDetailsStepData.current = validatedData;
           setStep(STEP_REVIEW);
         }
         return;
@@ -85,6 +103,7 @@ export function useOnboardingSubmit({
             ...emailStepData.current,
             ...personalDetailsStepData.current,
             ...homeAddressStepData.current,
+            ...financialDetailsStepData.current,
           });
         }
 
@@ -92,6 +111,7 @@ export function useOnboardingSubmit({
         emailStepData.current = { ...stepsConfig.email };
         personalDetailsStepData.current = { ...stepsConfig.personalDetails };
         homeAddressStepData.current = { ...stepsConfig.homeAddress };
+        financialDetailsStepData.current = { ...stepsConfig.financialDetails };
         setResetKey((prev) => prev + 1);
         setStep(STEP_THANK_YOU);
       }

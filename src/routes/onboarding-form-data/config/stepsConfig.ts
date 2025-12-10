@@ -14,6 +14,13 @@ export const stepsConfig = {
     state: "AZ",
     zip: "",
   },
+  financialDetails: {
+    income: "",
+    expenses: "",
+    assets: "",
+    liabilities: "",
+    netWorth: "",
+  },
   review: {},
   thankYou: {},
 };

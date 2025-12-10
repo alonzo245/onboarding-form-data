@@ -3,6 +3,7 @@ import {
   STEP_EMAIL,
   STEP_PERSONAL_DETAILS,
   STEP_HOME_ADDRESS,
+  STEP_FINANCIAL_DETAILS,
   STEP_REVIEW,
   STEP_THANK_YOU,
   type StepKey,
@@ -11,6 +12,7 @@ import {
   EmailStepData,
   PersonalDetailsStepData,
   HomeAddressStepData,
+  FinancialDetailsStepData,
 } from "../types";
 
 const STORAGE_KEY = "onboarding-form-data";
@@ -18,6 +20,7 @@ const allowedSteps: StepKey[] = [
   STEP_EMAIL,
   STEP_PERSONAL_DETAILS,
   STEP_HOME_ADDRESS,
+  STEP_FINANCIAL_DETAILS,
   STEP_REVIEW,
   STEP_THANK_YOU,
 ];
@@ -31,6 +34,7 @@ interface UseOnboardingPersistenceProps {
   emailStepData: React.MutableRefObject<EmailStepData>;
   personalDetailsStepData: React.MutableRefObject<PersonalDetailsStepData>;
   homeAddressStepData: React.MutableRefObject<HomeAddressStepData>;
+  financialDetailsStepData: React.MutableRefObject<FinancialDetailsStepData>;
 }
 
 export function useOnboardingPersistence({
@@ -42,6 +46,7 @@ export function useOnboardingPersistence({
   emailStepData,
   personalDetailsStepData,
   homeAddressStepData,
+  financialDetailsStepData,
 }: UseOnboardingPersistenceProps) {
   const hydratedRef = useRef(false);
 
@@ -52,6 +57,7 @@ export function useOnboardingPersistence({
         email: emailStepData.current,
         personalDetails: personalDetailsStepData.current,
         homeAddress: homeAddressStepData.current,
+        financialDetails: financialDetailsStepData.current,
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
     } catch (err) {
@@ -74,6 +80,8 @@ export function useOnboardingPersistence({
           personalDetailsStepData.current = { ...parsed.personalDetails };
         if (parsed.homeAddress)
           homeAddressStepData.current = { ...parsed.homeAddress };
+        if (parsed.financialDetails)
+          financialDetailsStepData.current = { ...parsed.financialDetails };
         if (parsed.step && allowedSteps.includes(parsed.step)) {
           targetStep = parsed.step;
         }
@@ -98,6 +106,7 @@ export function useOnboardingPersistence({
     personalDetailsStepData,
     setStep,
     stepParam,
+    financialDetailsStepData,
   ]);
 
   // Persist on step changes and keep URL in sync

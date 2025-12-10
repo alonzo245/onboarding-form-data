@@ -27,3 +27,11 @@ export const homeAddressStepValidation = z.object({
     .min(5, "ZIP code must be at least 5 characters")
     .regex(/^\d{5}(-\d{4})?$/, "Invalid ZIP code format"),
 });
+
+export const financialDetailsStepValidation = z.object({
+  income: z.string().min(1, "Income is required"),
+  expenses: z.string().min(1, "Expenses are required"),
+  assets: z.string().min(1, "Assets are required"),
+  liabilities: z.string().min(1, "Liabilities are required"),
+  netWorth: z.string().min(1, "Net worth is required"),
+});

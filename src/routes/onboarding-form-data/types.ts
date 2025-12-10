@@ -15,3 +15,11 @@ export interface HomeAddressStepData {
   state: string;
   zip: string;
 }
+
+export interface FinancialDetailsStepData {
+  income: string;
+  expenses: string;
+  assets: string;
+  liabilities: string;
+  netWorth: string;
+}
