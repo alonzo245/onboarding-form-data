@@ -14,6 +14,7 @@ import {
   HomeAddressStepData,
   FinancialDetailsStepData,
 } from "../types";
+import { toast } from "react-toastify";
 
 const STORAGE_KEY = "onboarding-form-data";
 const allowedSteps: StepKey[] = [
@@ -49,6 +50,7 @@ export function useOnboardingPersistence({
   financialDetailsStepData,
 }: UseOnboardingPersistenceProps) {
   const hydratedRef = useRef(false);
+  const restoredToastRef = useRef(false);
 
   const persist = (targetStep: StepKey = step) => {
     try {
@@ -70,11 +72,18 @@ export function useOnboardingPersistence({
     if (hydratedRef.current) return;
 
     let targetStep: StepKey = STEP_EMAIL;
+    let hadSavedData = false;
 
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
+        hadSavedData = Boolean(
+          parsed.email ||
+            parsed.personalDetails ||
+            parsed.homeAddress ||
+            parsed.financialDetails
+        );
         if (parsed.email) emailStepData.current = { ...parsed.email };
         if (parsed.personalDetails)
           personalDetailsStepData.current = { ...parsed.personalDetails };
@@ -90,6 +99,10 @@ export function useOnboardingPersistence({
       console.error("Failed to parse saved form data", err);
     }
 
+    if (hadSavedData) {
+      toast.info("Restored your saved progress.", { autoClose: 2000 });
+    }
+
     const normalized = stepParam as StepKey | undefined;
     if (normalized && allowedSteps.includes(normalized)) {
       targetStep = normalized;
@@ -98,6 +111,14 @@ export function useOnboardingPersistence({
     hydratedRef.current = true;
     setStep(targetStep);
     navigate(`${basePath}/${targetStep}`, { replace: true });
+
+    if (hadSavedData && !restoredToastRef.current) {
+      restoredToastRef.current = true;
+      // Defer to ensure ToastContainer is mounted
+      setTimeout(() => {
+        toast.info("Restored your saved progress.", { autoClose: 2000 });
+      }, 0);
+    }
   }, [
     basePath,
     emailStepData,
