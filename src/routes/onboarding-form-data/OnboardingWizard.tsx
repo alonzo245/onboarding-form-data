@@ -25,8 +25,8 @@ import {
   HomeAddressStepData,
 } from "./types";
 import { stepsConfig } from "./config/stepsConfig";
-import { ROOT_PATH } from "../../constants";
 import { GITHUB_PAGES_BASE } from "../../router";
+import { useOnboardingPersistence } from "./hooks/useOnboardingPersistence";
 
 export function OnboardingWizard() {
   const [step, setStep] = useState<StepKey>(STEP_EMAIL);
@@ -50,6 +50,17 @@ export function OnboardingWizard() {
     homeAddressStepData,
   });
 
+  const { persist } = useOnboardingPersistence({
+    step,
+    setStep,
+    stepParam,
+    basePath: GITHUB_PAGES_BASE,
+    navigate,
+    emailStepData,
+    personalDetailsStepData,
+    homeAddressStepData,
+  });
+
   const onPrevious = () => {
     if (step === STEP_PERSONAL_DETAILS) {
       setStep(STEP_EMAIL);
@@ -59,10 +70,6 @@ export function OnboardingWizard() {
       setStep(STEP_PERSONAL_DETAILS);
     }
   };
-
-  useEffect(() => {
-    navigate(`${GITHUB_PAGES_BASE}/${step}`, { replace: true });
-  }, [stepParam, navigate, step]);
 
   return (
     <div className="min-h-screen bg-gray-900 py-4 px-4 sm:py-8 sm:px-6 lg:px-8">
@@ -78,18 +85,21 @@ export function OnboardingWizard() {
                 <Email
                   key={`email-${resetKey}`}
                   initialValues={emailStepData}
+                  onPersist={() => persist()}
                 />
               </Step>
               <Step visible={step === STEP_PERSONAL_DETAILS}>
                 <PersonalDetails
                   key={`personalDetails-${resetKey}`}
                   initialValues={personalDetailsStepData.current}
+                  onPersist={() => persist()}
                 />
               </Step>
               <Step visible={step === STEP_HOME_ADDRESS}>
                 <HomeAddress
                   key={`homeAddress-${resetKey}`}
                   initialValues={homeAddressStepData.current}
+                  onPersist={() => persist()}
                 />
               </Step>
               <Step visible={step === STEP_REVIEW}>

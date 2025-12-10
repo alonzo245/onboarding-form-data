@@ -3,8 +3,10 @@ import { HomeAddressStepData } from "../../types";
 
 export function HomeAddress({
   initialValues,
+  onPersist,
 }: {
   initialValues: HomeAddressStepData;
+  onPersist?: () => void;
 }) {
   const getFieldError = useErrorsStore((state) => state.getFieldError);
 
@@ -24,7 +26,10 @@ export function HomeAddress({
             placeholder="Street address"
             name="addressLine1"
             defaultValue={initialValues.addressLine1}
-            onChange={(e) => (initialValues.addressLine1 = e.target.value)}
+            onChange={(e) => {
+              initialValues.addressLine1 = e.target.value;
+              onPersist?.();
+            }}
             className="w-full sm:max-w-md px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm"
           />
           {getFieldError("addressLine1") && (
@@ -46,7 +51,10 @@ export function HomeAddress({
             placeholder="Apartment, suite, etc. (optional)"
             name="addressLine2"
             defaultValue={initialValues.addressLine2 || ""}
-            onChange={(e) => (initialValues.addressLine2 = e.target.value)}
+            onChange={(e) => {
+              initialValues.addressLine2 = e.target.value;
+              onPersist?.();
+            }}
             className="w-full sm:max-w-md px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm"
           />
           {getFieldError("addressLine2") && (
@@ -69,7 +77,10 @@ export function HomeAddress({
               placeholder="City"
               name="city"
               defaultValue={initialValues.city}
-              onChange={(e) => (initialValues.city = e.target.value)}
+              onChange={(e) => {
+                initialValues.city = e.target.value;
+                onPersist?.();
+              }}
               className="w-full px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm"
             />
             {getFieldError("city") && (
@@ -91,7 +102,10 @@ export function HomeAddress({
               placeholder="State"
               name="state"
               defaultValue={initialValues.state}
-              onChange={(e) => (initialValues.state = e.target.value)}
+              onChange={(e) => {
+                initialValues.state = e.target.value;
+                onPersist?.();
+              }}
               className="w-full px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm"
             />
             {getFieldError("state") && (
@@ -115,7 +129,10 @@ export function HomeAddress({
             name="zip"
             maxLength={5}
             defaultValue={initialValues.zip}
-            onChange={(e) => (initialValues.zip = e.target.value)}
+            onChange={(e) => {
+              initialValues.zip = e.target.value;
+              onPersist?.();
+            }}
             className="w-full px-3 py-2 sm:py-2.5 bg-gray-700 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base sm:text-sm sm:max-w-xs"
           />
           {getFieldError("zip") && (

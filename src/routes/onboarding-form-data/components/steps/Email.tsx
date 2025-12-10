@@ -4,8 +4,10 @@ import { EmailStepData } from "../../types";
 
 export function Email({
   initialValues,
+  onPersist,
 }: {
   initialValues: RefObject<EmailStepData>;
+  onPersist?: () => void;
 }) {
   const getFieldError = useErrorsStore((state) => state.getFieldError);
   const emailError = getFieldError("email");
@@ -27,6 +29,7 @@ export function Email({
           defaultValue={initialValues.current.email}
           onChange={(e) => {
             initialValues.current.email = e.target.value;
+            onPersist?.();
           }}
         />
         {emailError && (
