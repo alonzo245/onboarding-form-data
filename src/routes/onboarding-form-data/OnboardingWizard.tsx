@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Email } from "./components/steps/Email";
 import { PersonalDetails } from "./components/steps/PersonalDetails";
@@ -10,7 +10,6 @@ import { ThankYou } from "./components/steps/ThankYou";
 import { Step } from "./components/Step";
 import {
   STEP_EMAIL,
-  STEP_MODE_CREATE,
   STEP_PERSONAL_DETAILS,
   STEP_HOME_ADDRESS,
   STEP_FINANCIAL_DETAILS,
@@ -33,7 +32,6 @@ import { FinancialDetails } from "./components/steps/FinancialDetails";
 
 export function OnboardingWizard() {
   const [step, setStep] = useState<StepKey>(STEP_EMAIL);
-  const [mode, setMode] = useState(STEP_MODE_CREATE);
   const navigate = useNavigate();
   const { step: stepParam } = useParams<{ step?: string }>();
 
@@ -89,7 +87,7 @@ export function OnboardingWizard() {
         </h1>
         <Form onSubmit={handleOnSubmit}>
           <div className="bg-gray-800 rounded-lg shadow-lg border border-gray-700 p-4 sm:p-6 lg:p-8">
-            <Header currentStep={step} mode={mode} setStep={setStep} />
+            <Header currentStep={step} setStep={setStep} />
             <div className="mt-6 sm:mt-8">
               <Step visible={step === STEP_EMAIL}>
                 <Email

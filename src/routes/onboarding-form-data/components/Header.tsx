@@ -6,17 +6,17 @@ import {
   STEP_EMAIL,
   STEP_PERSONAL_DETAILS,
   STEP_HOME_ADDRESS,
+  STEP_FINANCIAL_DETAILS,
   STEP_REVIEW,
   STEP_THANK_YOU,
 } from "../constants";
 
 interface HeaderProps {
   currentStep: string;
-  mode: string;
   setStep?: (step: StepKey) => void;
 }
 
-export function Header({ currentStep, mode, setStep }: HeaderProps) {
+export function Header({ currentStep, setStep }: HeaderProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const stepRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
@@ -49,6 +49,7 @@ export function Header({ currentStep, mode, setStep }: HeaderProps) {
       STEP_EMAIL,
       STEP_PERSONAL_DETAILS,
       STEP_HOME_ADDRESS,
+      STEP_FINANCIAL_DETAILS,
       STEP_REVIEW,
       STEP_THANK_YOU,
     ];
