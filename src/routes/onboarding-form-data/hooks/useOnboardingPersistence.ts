@@ -99,10 +99,6 @@ export function useOnboardingPersistence({
       console.error("Failed to parse saved form data", err);
     }
 
-    if (hadSavedData) {
-      toast.info("Restored your saved progress.", { autoClose: 2000 });
-    }
-
     const normalized = stepParam as StepKey | undefined;
     if (normalized && allowedSteps.includes(normalized)) {
       targetStep = normalized;
