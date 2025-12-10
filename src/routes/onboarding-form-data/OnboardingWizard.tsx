@@ -26,7 +26,7 @@ import {
   FinancialDetailsStepData,
 } from "./types";
 import { stepsConfig } from "./config/stepsConfig";
-import { GITHUB_PAGES_BASE } from "../../router";
+import { BASE_URL } from "../../router";
 import { useOnboardingPersistence } from "./hooks/useOnboardingPersistence";
 import { FinancialDetails } from "./components/steps/FinancialDetails";
 
@@ -59,7 +59,7 @@ export function OnboardingWizard() {
     step,
     setStep,
     stepParam,
-    basePath: GITHUB_PAGES_BASE,
+    basePath: BASE_URL,
     navigate,
     emailStepData,
     personalDetailsStepData,
