@@ -16,7 +16,7 @@ import {
 } from "../types";
 import { toast } from "react-toastify";
 
-const STORAGE_KEY = "onboarding-form-data";
+export const STORAGE_KEY = "onboarding-form-data";
 const allowedSteps: StepKey[] = [
   STEP_EMAIL,
   STEP_PERSONAL_DETAILS,
@@ -133,7 +133,6 @@ export function useOnboardingPersistence({
   // Persist on step changes and keep URL in sync
   useEffect(() => {
     if (!hydratedRef.current) return;
-    persist(step);
     navigate(`${basePath}/${step}`, { replace: true });
   }, [basePath, navigate, step]);
 

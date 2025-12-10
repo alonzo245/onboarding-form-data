@@ -55,7 +55,11 @@ export function ThankYou({ isVisible = true, setStep }: ThankYouProps) {
     }, 250);
 
     // Cleanup interval on unmount
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      // Allow retrigger if the component remounts (e.g., StrictMode double-invoke)
+      hasTriggeredRef.current = false;
+    };
   }, [isVisible]);
 
   return (

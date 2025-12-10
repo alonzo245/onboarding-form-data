@@ -24,6 +24,7 @@ import {
   HomeAddressStepData,
   FinancialDetailsStepData,
 } from "../types";
+import { STORAGE_KEY } from "./useOnboardingPersistence";
 
 interface UseOnboardingSubmitProps {
   step: StepKey;
@@ -114,6 +115,8 @@ export function useOnboardingSubmit({
         financialDetailsStepData.current = { ...stepsConfig.financialDetails };
         setResetKey((prev) => prev + 1);
         setStep(STEP_THANK_YOU);
+        // remove all data fr
+        localStorage.removeItem(STORAGE_KEY);
       }
     } catch (error) {
       console.error(error);
