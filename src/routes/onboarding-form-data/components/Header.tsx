@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useEffect, useRef } from "react";
-import { stepsConfig } from "./config";
+import { stepsConfig } from "../config";
 import {
   type StepKey,
   STEP_EMAIL,
@@ -8,7 +8,7 @@ import {
   STEP_HOME_ADDRESS,
   STEP_REVIEW,
   STEP_THANK_YOU,
-} from "./constants";
+} from "../constants";
 
 interface HeaderProps {
   currentStep: string;

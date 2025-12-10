@@ -1,4 +1,4 @@
-import { type StepKey, STEP_EMAIL } from "./constants";
+import { type StepKey, STEP_EMAIL } from "../constants";
 
 interface FooterProps {
   currentStep: StepKey;
