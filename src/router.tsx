@@ -1,18 +1,17 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import { OnboardingWizard } from "./routes/onboarding-form-data/OnboardingWizard";
 import { ROOT_PATH } from "./constants";
 
-// GitHub Pages base path: https://alonzo245.github.io/onboarding-form-data/
-const GITHUB_PAGES_BASE = "/onboarding-form-data";
+// GitHub Pages base path
+export const GITHUB_PAGES_BASE = "/onboarding-form-data";
 
-export const router = createBrowserRouter(
-  [
-    {
-      path: ROOT_PATH,
-      element: <OnboardingWizard />,
-    },
-  ],
+export const router = createBrowserRouter([
   {
-    basename: GITHUB_PAGES_BASE,
-  }
-);
+    path: ROOT_PATH,
+    element: <Navigate to={`${GITHUB_PAGES_BASE}/email`} replace />,
+  },
+  {
+    path: `${GITHUB_PAGES_BASE}/:step`,
+    element: <OnboardingWizard />,
+  },
+]);

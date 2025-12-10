@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Email } from "./components/steps/Email";
 import { PersonalDetails } from "./components/steps/PersonalDetails";
 import { HomeAddress } from "./components/steps/HomeAddress";
@@ -24,10 +25,14 @@ import {
   HomeAddressStepData,
 } from "./types";
 import { stepsConfig } from "./config/stepsConfig";
+import { ROOT_PATH } from "../../constants";
+import { GITHUB_PAGES_BASE } from "../../router";
 
 export function OnboardingWizard() {
   const [step, setStep] = useState<StepKey>(STEP_EMAIL);
   const [mode, setMode] = useState(STEP_MODE_CREATE);
+  const navigate = useNavigate();
+  const { step: stepParam } = useParams<{ step?: string }>();
 
   const emailStepData = useRef<EmailStepData>({ ...stepsConfig.email });
   const personalDetailsStepData = useRef<PersonalDetailsStepData>({
@@ -54,6 +59,10 @@ export function OnboardingWizard() {
       setStep(STEP_PERSONAL_DETAILS);
     }
   };
+
+  useEffect(() => {
+    navigate(`${GITHUB_PAGES_BASE}/${step}`, { replace: true });
+  }, [stepParam, navigate, step]);
 
   return (
     <div className="min-h-screen bg-gray-900 py-4 px-4 sm:py-8 sm:px-6 lg:px-8">
